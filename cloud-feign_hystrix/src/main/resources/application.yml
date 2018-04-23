@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: cloud-feign-hystrix
+  profiles:
+    active: dev
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/,http://localhost:8762/eureka/    
+ribbon:
+  eureka:
+    enabled: true      #serviceList 交给eureka管理。ribbon就不要配置ServiceList了
+
+feign-hystrix-service:
+  ribbon:
+    ConnectTimeout: 200 #连接超时时间
+    ReadTimeout: 1500  #读取超时时间
+    MaxAutoRetriesNextServer: 1 #重试机制访问几次失败后，更换实例访问    
+ 
+            
+# feign开启hystrix熔断服务
+feign:
+  hystrix:
+    enabled: true
+
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 2000
+
+---
+spring:
+  profiles: dev
+server:
+  port: 82
+    
+---
+spring:
+  profiles: pro
+server:
+  port: 84
