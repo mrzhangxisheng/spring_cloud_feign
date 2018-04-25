@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 
 import feign.Feign;
 
-@Configuration
+//@Configuration 一定要去掉这个注解，不然全局都会关闭hystrix服务 
 public class DisableHystrixConfiguration {
     @Bean
 	@Scope("prototype")
